@@ -47,5 +47,8 @@ for (const distributionEntry of distributionEntries) {
 }
 
 childProcess
-  .spawn("npm", ["publish"], { stdio: "inherit", cwd: targetPackageDirpath })
+  .spawn("npm", ["publish", "--access=public"], {
+    stdio: "inherit",
+    cwd: targetPackageDirpath,
+  })
   .on("exit", (code) => process.exit(code));
