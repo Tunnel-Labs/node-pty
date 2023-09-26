@@ -1,0 +1,40 @@
+name: Build and publish node-pty
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ${{ matrix.config.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # We use "ubuntu-20.04" and not "ubuntu-latest" so that we can target older versions of GLIBC (e.g. for WSL users)
+          - os: ubuntu-20.04
+          - os: macos-latest
+          - os: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: Publish to npm
+        run: node ./scripts/publish.mjs
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish untargeted version to npm
+        if: matrix.config.os == 'ubuntu-20.04'
+        run: node ./scripts/publish.mjs --untargeted
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+

@@ -1,0 +1,19 @@
+{
+  "name": "@tunnel/node-pty-linux-x64",
+  "description": "Fork pseudoterminals in Node.JS",
+  "version": "1.0.0-beta.0",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "types": "./typings/node-pty.d.ts",
+  "files": [
+		"build/Release",
+    "lib/",
+    "scripts/",
+    "src/",
+    "deps/",
+    "typings/"
+  ],
+  "dependencies": {
+    "nan": "^2.17.0"
+  }
+}
