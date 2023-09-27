@@ -1,7 +1,7 @@
 {
   "name": "@tunnel/node-pty-win32-x64",
   "description": "Fork pseudoterminals in Node.JS",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./typings/node-pty.d.ts",

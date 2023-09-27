@@ -47,7 +47,7 @@ for (const distributionEntry of distributionEntries) {
 }
 
 childProcess
-  .spawn("npm", ["publish", "--access=public"], {
+  .spawn("yarn", ["publish", "--non-interactive", "--access=public"], {
     stdio: "inherit",
     cwd: targetPackageDirpath,
   })
