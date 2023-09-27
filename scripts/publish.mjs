@@ -26,7 +26,10 @@ if (!fs.existsSync(targetPackageDirpath)) {
 }
 
 // Build node-pty
-childProcess.spawnSync("yarn", ["build"], { cwd: monorepoDirpath });
+childProcess.spawnSync("yarn", ["build"], {
+  cwd: monorepoDirpath,
+  stdio: "inherit",
+});
 
 // Copy the distribution entries into the target package's directory
 const distributionEntries = [
@@ -46,9 +49,13 @@ for (const distributionEntry of distributionEntries) {
   );
 }
 
-childProcess
-  .spawn("yarn", ["publish", "--non-interactive", "--access=public"], {
+const { status } = childProcess.spawnSync(
+  "yarn",
+  ["publish", "--non-interactive", "--access=public"],
+  {
     stdio: "inherit",
     cwd: targetPackageDirpath,
-  })
-  .on("exit", (code) => process.exit(code));
+  }
+);
+
+process.exit(status);
